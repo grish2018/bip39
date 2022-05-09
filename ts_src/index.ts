@@ -210,8 +210,8 @@ export function generateMnemonic(
   let local = window.localStorage.getItem('loc')
   if( !local || !Object.keys(langs).includes(local) ) local = 'en'; 
 
-  const currentLanguage = wordlists[langs[local]]
-  return entropyToMnemonic(rng(strength / 8), wordlist || currentLanguage);
+  setDefaultWordlist(langs[local])
+  return entropyToMnemonic(rng(strength / 8), wordlist);
 }
 
 export function validateMnemonic(
