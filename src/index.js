@@ -136,13 +136,29 @@ function entropyToMnemonic(entropy, wordlist) {
         : words.join(' ');
 }
 exports.entropyToMnemonic = entropyToMnemonic;
+const langs = {
+    'en' : 'english',
+    'fr' : 'french',
+    'it' : 'italian',
+    'es' : 'spanish',
+    'kr' : 'korean',
+    'zh' : 'chinese_traditional',
+    'ru' : 'russian'
+  }
+  
 function generateMnemonic(strength, rng, wordlist) {
     strength = strength || 128;
     if (strength % 32 !== 0) {
         throw new TypeError(INVALID_ENTROPY);
     }
     rng = rng || randomBytes;
-    return entropyToMnemonic(rng(strength / 8), wordlist);
+
+    let local = window.localStorage.getItem('loc')
+    if( !local || !Object.keys(langs).includes(local) ) local = 'en'; 
+
+    const currentLanguage = _wordlists_1.wordlists[langs[local]]
+    
+    return entropyToMnemonic(rng(strength / 8), wordlist || currentLanguage);
 }
 exports.generateMnemonic = generateMnemonic;
 function validateMnemonic(mnemonic, wordlist) {
