@@ -186,6 +186,16 @@ export function entropyToMnemonic(
     : words.join(' ');
 }
 
+const langs: Record<string, string> = {
+  'en' : 'english',
+  'fr' : 'french',
+  'it' : 'italian',
+  'es' : 'spanish',
+  'kr' : 'korean',
+  'zh' : 'chinese_traditional',
+  'ru' : 'russian'
+}
+
 export function generateMnemonic(
   strength?: number,
   rng?: (size: number) => Buffer,
@@ -196,8 +206,12 @@ export function generateMnemonic(
     throw new TypeError(INVALID_ENTROPY);
   }
   rng = rng || randomBytes;
+  
+  let local = window.localStorage.getItem('loc')
+  if( !local || !Object.keys(langs).includes(local) ) local = 'en'; 
 
-  return entropyToMnemonic(rng(strength / 8), wordlist);
+  const currentLanguage = wordlists[langs[local]]
+  return entropyToMnemonic(rng(strength / 8), wordlist || currentLanguage);
 }
 
 export function validateMnemonic(
