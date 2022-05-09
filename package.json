@@ -1,6 +1,6 @@
 {
-  "name": "bip39",
-  "version": "3.0.4",
+  "name": "bip39russian",
+  "version": "1.0.0",
   "description": "Bitcoin BIP39: Mnemonic code for generating deterministic keys",
   "main": "src/index.js",
   "types": "./types/index.d.ts",
@@ -17,17 +17,10 @@
     "unit": "tape test/*.js",
     "update": "node -e \"require('./util/wordlists').update()\""
   },
-  "author": "Wei Lu",
-  "contributors": [
-    {
-      "name": "Daniel Cousens",
-      "email": "email@dcousens.com",
-      "url": "http://dcousens.com"
-    }
-  ],
+  "author": "grish2018",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bitcoinjs/bip39.git"
+    "url": "git+https://github.com/grish2018/bip39.git"
   },
   "license": "ISC",
   "files": [
@@ -51,5 +44,12 @@
     "tape": "^4.13.2",
     "tslint": "^6.1.0",
     "typescript": "3.3.4000"
+  },
+  "bugs": {
+    "url": "https://github.com/grish2018/bip39/issues"
+  },
+  "homepage": "https://github.com/grish2018/bip39#readme",
+  "directories": {
+    "test": "test"
   }
 }

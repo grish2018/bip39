@@ -1,5 +1,8 @@
 # BIP39
+# What is thhis
 
+It is the forked bitcoinjs/bip39 library,with option to create mnemonic phrases on russian for special needs.
+ 
 [![Build Status](https://travis-ci.org/bitcoinjs/bip39.png?branch=master)](https://travis-ci.org/bitcoinjs/bip39)
 [![NPM](https://img.shields.io/npm/v/bip39.svg)](https://www.npmjs.org/package/bip39)
 
