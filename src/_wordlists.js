@@ -14,7 +14,7 @@ try {
 catch (err) { }
 try {
     exports._default = _default = require('./wordlists/russian.json');
-    wordlists.chinese_simplified = _default;
+    wordlists.russian = _default;
 }
 catch (err) { }
 try {

@@ -13,7 +13,7 @@ try {
 } catch (err) {}
 try {
   _default = require('./wordlists/russian.json');
-  wordlists.chinese_simplified = _default as string[];
+  wordlists.russian = _default as string[];
 } catch (err) {}
 try {
   _default = require('./wordlists/chinese_traditional.json');
