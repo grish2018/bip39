@@ -13,13 +13,13 @@ try {
 }
 catch (err) { }
 try {
-    exports._default = _default = require('./wordlists/russian.json');
-    wordlists.russian = _default;
+    exports._default = _default = require('./wordlists/chinese_simplified.json');
+    wordlists.chinese_simplified = _default;
 }
 catch (err) { }
 try {
-    exports._default = _default = require('./wordlists/chinese_simplified.json');
-    wordlists.chinese_simplified = _default;
+    exports._default = _default = require('./wordlists/russian.json');
+    wordlists.russian = _default;
 }
 catch (err) { }
 try {

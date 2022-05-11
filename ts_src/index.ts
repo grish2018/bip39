@@ -186,16 +186,6 @@ export function entropyToMnemonic(
     : words.join(' ');
 }
 
-const langs: Record<string, string> = {
-  'en' : 'english',
-  'fr' : 'french',
-  'it' : 'italian',
-  'es' : 'spanish',
-  'kr' : 'korean',
-  'zh' : 'chinese_traditional',
-  'ru' : 'russian'
-}
-
 export function generateMnemonic(
   strength?: number,
   rng?: (size: number) => Buffer,
@@ -207,10 +197,6 @@ export function generateMnemonic(
   }
   rng = rng || randomBytes;
   
-  let local = window.localStorage.getItem('loc')
-  if( !local || !Object.keys(langs).includes(local) ) local = 'en'; 
-
-  setDefaultWordlist(langs[local])
   return entropyToMnemonic(rng(strength / 8), wordlist);
 }
 
@@ -226,6 +212,23 @@ export function validateMnemonic(
 
   return true;
 }
+
+function validateMnemonickWithLangDetection(mnemonic: string){
+  const firs5Words = mnemonic.split(' ', 4)
+  const formatedWordLists = Object.keys(wordlists).map((key) => [key,...wordlists[key]])
+  let wordList
+  for(const list of formatedWordLists){
+      if(firs5Words.every(element => {
+          return list.includes(element);
+        })){
+          wordList = wordlists[list[0]]
+        }else{
+          wordList =  DEFAULT_WORDLIST
+        }
+  }
+  validateMnemonic(mnemonic, wordList)
+}
+exports.validateMnemonickWithLangDetection = validateMnemonickWithLangDetection;
 
 export function setDefaultWordlist(language: string): void {
   const result = wordlists[language];

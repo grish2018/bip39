@@ -136,15 +136,6 @@ function entropyToMnemonic(entropy, wordlist) {
         : words.join(' ');
 }
 exports.entropyToMnemonic = entropyToMnemonic;
-const langs = {
-    'en' : 'english',
-    'fr' : 'french',
-    'it' : 'italian',
-    'es' : 'spanish',
-    'kr' : 'korean',
-    'zh' : 'chinese_traditional',
-    'ru' : 'russian'
-  }
   
 function generateMnemonic(strength, rng, wordlist) {
     strength = strength || 128;
@@ -152,11 +143,6 @@ function generateMnemonic(strength, rng, wordlist) {
         throw new TypeError(INVALID_ENTROPY);
     }
     rng = rng || randomBytes;
-
-    let local = window.localStorage.getItem('loc')
-    if( !local || !Object.keys(langs).includes(local) ) local = 'en'; 
-
-    setDefaultWordlist(langs[local])
 
     return entropyToMnemonic(rng(strength / 8), wordlist);
 }
@@ -171,6 +157,24 @@ function validateMnemonic(mnemonic, wordlist) {
     return true;
 }
 exports.validateMnemonic = validateMnemonic;
+
+function validateMnemonickWithLangDetection(mnemonic){
+    const firs5Words = mnemonic.split(' ', 4)
+    const formatedWordLists = Object.keys(_wordlists_1.wordlists).map((key) => [key,..._wordlists_1.wordlists[key]])
+    let wordList
+    for(const list of formatedWordLists){
+        if(firs5Words.every(element => {
+            return list.includes(element);
+          })){
+            wordList = _wordlists_1.wordlists[list[0]]
+          }else{
+            wordList =  DEFAULT_WORDLIST
+          }
+    }
+    validateMnemonic(mnemonic, wordList)
+}
+exports.validateMnemonickWithLangDetection = validateMnemonickWithLangDetection;
+
 function setDefaultWordlist(language) {
     const result = _wordlists_1.wordlists[language];
     if (result) {
