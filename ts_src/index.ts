@@ -214,19 +214,18 @@ export function validateMnemonic(
 }
 
 function validateMnemonickWithLangDetection(mnemonic: string){
-  const firs5Words = mnemonic.split(' ', 4)
+  const firs5Words = mnemonic.split(' ', 5)
   const formatedWordLists = Object.keys(wordlists).map((key) => [key,...wordlists[key]])
   let wordList
+  const containsAll = (arr1: string[], arr2: string[]) => arr1.every(element => {
+    return arr2.includes(element);
+  });
   for(const list of formatedWordLists){
-      if(firs5Words.every(element => {
-          return list.includes(element);
-        })){
+      if(containsAll(firs5Words, list)){
           wordList = wordlists[list[0]]
-        }else{
-          wordList =  DEFAULT_WORDLIST
         }
-  }
-  validateMnemonic(mnemonic, wordList)
+    }
+ return validateMnemonic(mnemonic, wordList)
 }
 exports.validateMnemonickWithLangDetection = validateMnemonickWithLangDetection;
 
